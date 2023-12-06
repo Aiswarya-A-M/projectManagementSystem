@@ -1,28 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
-const getRoles = require("../controllers/service");
 
+const getRoles = require("../controllers/service");
 router.use(express.json());
 
-const options = {
-  definition: {
-    openapi: "3.1.0",
-    info: {
-      title: "Project Management System",
-      version: "2.0",
-    },
-    servers: [
-      {
-        url: "http://localhost:3000/",
-      },
-    ],
-  },
-  apis: ["./routes/router.js"],
-};
-const swaggerSpec = swaggerJsDoc(options);
-router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
@@ -43,4 +24,28 @@ router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  */
 
 router.get("/:id", getRoles.getRoles);
+/**
+ * @swagger
+ * /roles/addRole:
+ *   post:
+ *     summary: add new role
+ *     description: add new role.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *          schema:
+ *             type: object
+ *             properties:
+ *               role:
+ *                 type: string
+ *             required:
+ *              - role
+ *     responses:
+ *       200:
+ *         description: Successful response
+ */
+
+router.post("/addRole",getRoles.addRoles);
+
 module.exports = router;

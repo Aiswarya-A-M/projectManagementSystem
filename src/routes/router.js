@@ -49,8 +49,10 @@ router.get("/:id", (req, res) => {
       console.log(err.stack);
       return;
     } else {
-      console.log(result.rows[0].role);
-      return res.send(`${result.rows[0].role}`);
+     
+      const id=parseInt(req.params.id)-1;
+      return res.send(`${result.rows[id].role}`);
+     
     }
   });
 });

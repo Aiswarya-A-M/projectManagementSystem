@@ -1,7 +1,7 @@
 const { Pool } = require("pg");
 const path = require("path");
 const dotEnv = require("dotenv");
-const envPath = path.resolve(__dirname, "../../.env");
+const envPath = path.join(__dirname, "../../.env");
 
 dotEnv.config({
   path: envPath,

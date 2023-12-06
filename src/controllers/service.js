@@ -13,7 +13,7 @@ const roles = {
       res.send(role);
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error: "Server error" });
+      res.json({ error: "Server error" });
     }
   },
   async addRoles(req, res) {
@@ -31,7 +31,7 @@ const roles = {
       res.send(newRole);
     } catch (error) {
       console.log(error);
-      res.status(500).json({ error: "Server error" });
+      res.json({ error: "Server error" });
     }
   },
 };

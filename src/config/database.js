@@ -1,4 +1,4 @@
-const { Pool } = require("pg");
+const { Sequelize } = require("sequelize");
 const path = require("path");
 const dotEnv = require("dotenv");
 const envPath = path.join(__dirname, "../../.env");
@@ -7,13 +7,23 @@ dotEnv.config({
   path: envPath,
 });
 
-const pool = new Pool({
-  user: process.env.user,
-  database: process.env.DATABASE,
-  password: process.env.PASSWORD,
-  port: process.env.PORT,
-  host: process.env.HOST,
-});
-pool.connect();
+const sequelize = new Sequelize(
+  process.env.DATABASE,
+  process.env.user,
+  process.env.PASSWORD,
+  {
+    host: process.env.HOST,
+    dialect: "postgres",
+  }
+);
 
-module.exports = pool;
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("connection established successfully");
+  })
+  .catch((error) => {
+    console.log("unable to connect", error);
+  });
+
+module.exports = sequelize;

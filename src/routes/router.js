@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const query = require("../repository/getQuery");
-const pool = require("../config/database");
+const getRoles = require("../controllers/service");
 
 router.use(express.json());
 
@@ -43,17 +42,5 @@ router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *           description: Successful response
  */
 
-router.get("/:id", (req, res) => {
-  pool.query(query, (err, result) => {
-    if (err) {
-      console.log(err.stack);
-      return;
-    } else {
-     
-      const id=parseInt(req.params.id)-1;
-      return res.send(`${result.rows[id].role}`);
-     
-    }
-  });
-});
+router.get("/:id", getRoles.getRoles);
 module.exports = router;

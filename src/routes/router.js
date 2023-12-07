@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
-const getRoles = require("../controllers/service");
+const rolesTable = require("../controllers/rolesTable");
+const validator = require("../middleware/validator");
 router.use(express.json());
-
 
 /**
  * @swagger
@@ -23,7 +22,7 @@ router.use(express.json());
  *           description: Successful response
  */
 
-router.get("/:id", getRoles.getRoles);
+router.get("/:id", rolesTable.getRoles);
 /**
  * @swagger
  * /roles/addRole:
@@ -46,6 +45,6 @@ router.get("/:id", getRoles.getRoles);
  *         description: Successful response
  */
 
-router.post("/addRole",getRoles.addRoles);
+router.post("/addRole",rolesTable.addRoles);
 
 module.exports = router;

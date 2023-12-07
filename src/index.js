@@ -34,7 +34,7 @@ sequelize
   })
   .catch((error) => {
     console.log("error occurred", error);
-});
+  });
 
 app.listen(port, () => {
   console.log("server running on port", port);

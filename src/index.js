@@ -1,5 +1,7 @@
 const express = require("express");
 const router = require("./routes/router");
+const projectRouter=require("./routes/projectRouter");
+const taskRouter=require("./routes/taskRouter");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const sequelize = require("./config/database");
@@ -19,13 +21,15 @@ const options = {
       },
     ],
   },
-  apis: ["./routes/router.js"],
+  apis: ["./routes/*.js"],
 };
 const swaggerSpec = swaggerJsDoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(express.json());
 
 app.use("/roles", router);
+app.use("/project",projectRouter);
+app.use("/task",taskRouter);
 
 sequelize
   .sync({ force: false })
